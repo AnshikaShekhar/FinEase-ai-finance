@@ -2,7 +2,7 @@
 
 FinEase is a modern, AI-powered finance management platform designed to help users track expenses, get budget insights, and automate workflows. Built using **Next.js**, **Supabase**, **Prisma**, **Inngest**, **ArcJet**, **Tailwind CSS**, and **Shadcn UI**, it offers a seamless and secure user experience. Now with **receipt scanning via Google Cloud Vision API** and **email notifications** for budget alerts!
 
-🚀 **Live Demo:** [https://finease.vercel.app](https://finease.vercel.app)
+🚀 **Live Demo:** [https://fin-ease-ai-finance.vercel.app/](https://fin-ease-ai-finance.vercel.app/)
 
 ---
 
