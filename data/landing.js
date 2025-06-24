@@ -90,22 +90,19 @@ export const testimonialsData = [
   {
     name: "Kate Johnson",
     role: "Product Manager",
-    image: "https://randomuser.me/api/portraits/women/75.jpg",
-    quote:
-      "FinEase has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
+    image: "/avatars/kate.jpg",
+    quote: "FinEase has transformed how I manage my business finances...",
   },
   {
     name: "John Smith",
     role: "Freelancer",
-    image: "https://randomuser.me/api/portraits/men/75.jpg",
-    quote:
-      "The receipt scanning feature saves me hours each month. Now I can focus on my work instead of manual data entry and expense tracking.",
+    image: "/avatars/john.jpg",
+    quote: "The receipt scanning feature saves me hours each month...",
   },
   {
     name: "Rachel Green",
     role: "Financial Advisor",
-    image: "https://randomuser.me/api/portraits/women/74.jpg",
-    quote:
-      "I recommend FinEase to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
+    image: "/avatars/rachel.jpg",
+    quote: "I recommend FinEase to all my clients...",
   },
 ];
