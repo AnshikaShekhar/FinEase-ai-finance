@@ -10,125 +10,231 @@ import {
 } from "@/data/landing";
 import HeroSection from "@/components/hero";
 import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const LandingPage = () => {
+  const { scrollY } = useScroll();
+
+  // Animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const staggerVariants = {
+    visible: { transition: { staggerChildren: 0.2 } },
+  };
+
+  // Parallax effect for background elements
+  const yBackground = useTransform(scrollY, [0, 500], [0, -100]);
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
+      {/* Decorative Background */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ y: yBackground }}
+      >
+        <div className="absolute -top-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
+        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
+      </motion.div>
+
       {/* Hero Section */}
       <HeroSection />
 
       {/* Stats Section */}
-      <section className="py-20 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section className="py-24 bg-blue-50 relative z-10">
+        <motion.div
+          className="container mx-auto px-4"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-10"
+            variants={staggerVariants}
+          >
             {statsData.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
+              <motion.div
+                key={index}
+                className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                variants={cardVariants}
+              >
+                <div className="text-5xl font-bold text-blue-600 mb-3">{stat.value}</div>
+                <div className="text-gray-700 font-medium">{stat.label}</div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Everything you need to manage your finances
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section id="features" className="py-24 relative z-10">
+        <motion.div
+          className="container mx-auto px-4"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            variants={sectionVariants}
+          >
+            Everything You Need to Manage Your Finances
+          </motion.h2>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+            variants={staggerVariants}
+          >
             {featuresData.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card className="p-6" key={index}>
-                  <CardContent className="space-y-4 pt-4">
-                    <Icon className="h-8 w-8 text-blue-600" />
-                    <h3 className="text-xl font-semibold">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </CardContent>
-                </Card>
+                <motion.div
+                  key={index}
+                  className="group"
+                  variants={cardVariants}
+                >
+                  <Card className="p-6 bg-white hover:bg-blue-50 transition-colors duration-300 rounded-xl shadow-lg hover:shadow-xl">
+                    <CardContent className="space-y-6 pt-6">
+                      <Icon className="h-12 w-12 text-blue-600 group-hover:text-purple-600 transition-colors duration-300" />
+                      <h3 className="text-2xl font-semibold text-gray-900 group-hover:text-blue-600">{feature.title}</h3>
+                      <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               );
             })}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <section className="py-24 bg-blue-50 relative z-10">
+        <motion.div
+          className="container mx-auto px-4"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-20 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            variants={sectionVariants}
+          >
+            How It Works
+          </motion.h2>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-12"
+            variants={staggerVariants}
+          >
             {howItWorksData.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Icon className="h-8 w-8 text-blue-600" />
+                <motion.div
+                  key={index}
+                  className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+                  variants={cardVariants}
+                >
+                  <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8 transform group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="h-10 w-10 text-blue-600" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                </div>
+                  <h3 className="text-2xl font-semibold mb-6 text-gray-900">{step.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                </motion.div>
               );
             })}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">
+      <section id="testimonials" className="py-24 relative z-10">
+        <motion.div
+          className="container mx-auto px-4"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-20 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            variants={sectionVariants}
+          >
             What Our Users Say
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          </motion.h2>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-10"
+            variants={staggerVariants}
+          >
             {testimonialsData.map((testimonial, index) => (
-              <Card key={index} className="p-6">
-                <CardContent className="pt-4">
-                  <div className="flex items-center mb-4">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
-                    <div className="ml-4">
-                      <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600">
-                        {testimonial.role}
+              <motion.div
+                key={index}
+                className="group"
+                variants={cardVariants}
+              >
+                <Card className="p-6 bg-white hover:bg-gray-50 transition-colors duration-300 rounded-xl shadow-lg hover:shadow-xl">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center mb-6">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        width={50}
+                        height={50}
+                        className="rounded-full border-2 border-blue-100"
+                      />
+                      <div className="ml-6">
+                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                        <div className="text-sm text-gray-600">{testimonial.role}</div>
                       </div>
                     </div>
-                  </div>
-                  <p className="text-gray-600">{testimonial.quote}</p>
-                </CardContent>
-              </Card>
+                    <p className="text-gray-600 italic">"{testimonial.quote}"</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+      <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600 relative z-10">
+        <motion.div
+          className="container mx-auto px-4 text-center"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.h2
+            className="text-4xl font-extrabold text-white mb-6"
+            variants={sectionVariants}
+          >
             Ready to Take Control of Your Finances?
-          </h2>
-          <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of users who are already managing their finances
-            smarter with FinEase.
-          </p>
-          <Link href="/dashboard">
-            <Button
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-blue-50 animate-bounce"
-            >
-              Start Free Trial
-            </Button>
-          </Link>
-        </div>
+          </motion.h2>
+          <motion.p
+            className="text-blue-100 mb-10 max-w-3xl mx-auto text-lg"
+            variants={sectionVariants}
+          >
+            Join thousands of users who are already managing their finances smarter with FinEase.
+          </motion.p>
+          <motion.div variants={sectionVariants}>
+            <Link href="/dashboard">
+              <Button
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-blue-50 px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
+              >
+                Start Free Trial
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </section>
     </div>
   );
